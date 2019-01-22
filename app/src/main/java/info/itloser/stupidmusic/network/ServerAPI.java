@@ -30,20 +30,36 @@ public interface ServerAPI {
             @Query("limit") int limit,
             @Query("offset") int offset);
 
-    //搜索( type 见 Constants )
+    //获取歌单分类
+    @GET("songListCategory")
+    Observable<ApiResult<List<Song>>> songListCategory(
+            @Query("key") int key);
+
+
+    //查找精品歌单( 根据分类 cat 默认 全部 )
+    @GET("highQualitySongList")
+    Observable<ApiResult<List<Song>>> highQualitySongList(
+            @Query("key") int key,
+            @Query("cat") String cat,
+            @Query("limit") int limit,
+            @Query("offset") int offset,
+            @Query("order") String order);
+
+    //查找热门歌单（根据分类 cat 默认 全部）（根据 order 最新 new / 最热 hot 默认）
     @GET("hotSongList")
     Observable<ApiResult<List<Song>>> hotSongList(
             @Query("key") int key,
-            @Query("s") String keyword,
+            @Query("cat") String cat,
             @Query("type") String type,
             @Query("limit") int limit,
             @Query("offset") int offset);
-    //精品歌单
-
-    //获取歌单分类
-
-    //查找歌单( 根据分类 )
 
     //MV排行榜
+    @GET("topMvList")
+    Observable<ApiResult<List<Song>>> topMvList(
+            @Query("key") int key,
+            @Query("limit") int limit,
+            @Query("offset") int offset);
+
 
 }

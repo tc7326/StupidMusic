@@ -10,6 +10,9 @@ public interface Constants {
     //BaseUrl
     String API_SERVER_URL = "https://api.bzqll.com/music/netease/";
 
+    //url key
+    int API_SERVER_KEY = 579621905;
+
     //搜索(类型)
     String SEARCH_TYPE_SONG = "song";//音乐
     String SEARCH_TYPE_SINGER = "singer";//歌手
