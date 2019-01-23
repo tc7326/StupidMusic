@@ -3,6 +3,7 @@ package info.itloser.stupidmusic.network;
 import java.util.List;
 
 import info.itloser.stupidmusic.beans.Song;
+import info.itloser.stupidmusic.network.responseBean.HighQualitySongListResp;
 import info.itloser.stupidmusic.network.responseBean.SongListResp;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -38,12 +39,11 @@ public interface ServerAPI {
 
     //查找精品歌单( 根据分类 cat 默认 全部 )
     @GET("highQualitySongList")
-    Observable<ApiResult<List<Song>>> highQualitySongList(
+    Observable<ApiResult<HighQualitySongListResp>> highQualitySongList(
             @Query("key") int key,
             @Query("cat") String cat,
-            @Query("limit") int limit,
-            @Query("offset") int offset,
-            @Query("order") String order);
+            @Query("limit") int limit
+    );
 
     //查找热门歌单（根据分类 cat 默认 全部）（根据 order 最新 new / 最热 hot 默认）
     @GET("hotSongList")
