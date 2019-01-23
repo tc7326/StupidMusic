@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import info.itloser.stupidmusic.beans.Constants;
 import info.itloser.stupidmusic.beans.Song;
+import info.itloser.stupidmusic.network.responseBean.HighQualitySongListResp;
 import info.itloser.stupidmusic.network.responseBean.SongListResp;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -55,6 +56,13 @@ public class RequestClient {
      * */
     public Observable<List<Song>> search(String keyword, String type, int limit, int offset) {
         return mServerApi.search(579621905, keyword, type, limit, offset).map(new ApiResultFunc1<List<Song>>()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /*
+     * 获取精品歌单
+     * */
+    public Observable<HighQualitySongListResp> highQualitySongList(String type, int limit) {
+        return mServerApi.highQualitySongList(579621905, type, limit).map(new ApiResultFunc1<HighQualitySongListResp>()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
 }

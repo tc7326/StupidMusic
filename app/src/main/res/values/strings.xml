@@ -1,13 +1,9 @@
 <resources>
     <string name="app_name">StupidMusic</string>.
 
-    <string name="activity_main_0">find</string>
-
-
-
-
-
-
-
+    <string name="new_songlist">Top New</string>
+    <string name="hot_songlist">Top Hot</string>
+    <string name="star_songlist">Top Star</string>
+    <string name="music_video">Top MV</string>
 
 </resources>
