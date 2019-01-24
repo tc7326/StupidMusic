@@ -1,4 +1,4 @@
-package info.itloser.stupidmusic;
+package info.itloser.stupidmusic.adapter;
 
 import android.support.annotation.Nullable;
 
@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import info.itloser.stupidmusic.R;
 import info.itloser.stupidmusic.beans.SongListMsg;
 
 /**

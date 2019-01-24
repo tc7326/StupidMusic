@@ -1,4 +1,4 @@
-package info.itloser.stupidmusic;
+package info.itloser.stupidmusic.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,16 +11,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
+import info.itloser.stupidmusic.R;
+import info.itloser.stupidmusic.adapter.SongListAdapter;
 import info.itloser.stupidmusic.beans.SongListMsg;
 import info.itloser.stupidmusic.network.RequestClient;
 import info.itloser.stupidmusic.network.responseBean.HighQualitySongListResp;
@@ -40,16 +42,6 @@ public class MainFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.ll_new)
-    LinearLayout llNew;
-    @BindView(R.id.ll_hot)
-    LinearLayout llHot;
-    @BindView(R.id.ll_star)
-    LinearLayout llStar;
-    @BindView(R.id.ll_mv)
-    LinearLayout llMv;
-    @BindView(R.id.linearLayout2)
-    LinearLayout linearLayout2;
     @BindView(R.id.rv_main)
     RecyclerView rvMain;
 
@@ -103,6 +95,13 @@ public class MainFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         songListAdapter = new SongListAdapter(R.layout.item_songlistmsg, songListMsgList);
+        songListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //开启fragment
+                Toast.makeText(getActivity(), "clicked" + position + "songlist id is" + songListMsgList.get(position).getId(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         rvMain.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvMain.setAdapter(songListAdapter);
@@ -165,24 +164,6 @@ public class MainFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @OnClick({R.id.ll_new, R.id.ll_hot, R.id.ll_star, R.id.ll_mv})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_new:
-                Toast.makeText(getActivity(), "NEW", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.ll_hot:
-                Toast.makeText(getActivity(), "HOT", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.ll_star:
-                Toast.makeText(getActivity(), "STAR", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.ll_mv:
-                Toast.makeText(getActivity(), "MV", Toast.LENGTH_SHORT).show();
-                break;
-        }
     }
 
     /**

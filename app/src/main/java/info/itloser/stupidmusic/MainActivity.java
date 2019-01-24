@@ -3,26 +3,32 @@ package info.itloser.stupidmusic;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.itloser.stupidmusic.fragment.MainFragment;
+import info.itloser.stupidmusic.fragment.TopNewFragment;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnFragmentInteractionListener, TopNewFragment.OnFragmentInteractionListener {
 
-    @BindView(R.id.et_search)
-    EditText etSearch;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
     @BindView(R.id.dl_main)
     DrawerLayout dlMain;
+    @BindView(R.id.cardView)
+    CardView cardView;
+
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +38,26 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         //设置抽屉布局的阴影颜色
         ((DrawerLayout) findViewById(R.id.dl_main)).setScrimColor(Color.TRANSPARENT);
 
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //事务是不能共享的，每次用到都要重新开启一个事务，之后提交
+        fragmentTransaction.replace(R.id.fl_main, new TopNewFragment());
+        fragmentTransaction.commit();
+
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //返回键按下
+
+        //侧栏
+        if (dlMain.isDrawerOpen(GravityCompat.START)) {
+            dlMain.closeDrawer(GravityCompat.START);
+            return true;
+        }
+
+        //返回到后台
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //如果侧栏打开则关闭
-            if (dlMain.isDrawerOpen(GravityCompat.END)) {
-                dlMain.closeDrawer(GravityCompat.END);
-            } else {
-                moveTaskToBack(true);
-            }
+            moveTaskToBack(true);
             return true;
         }
         return super.onKeyDown(keyCode, event);

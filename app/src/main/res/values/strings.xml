@@ -6,4 +6,7 @@
     <string name="star_songlist">Top Star</string>
     <string name="music_video">Top MV</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
